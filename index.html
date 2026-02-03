@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, David Smart🎉</title>
+    <style>
+        :root {
+            --bg: #070a12;
+            --panel: rgba(14, 18, 35, 0.65);
+            --border: rgba(255, 255, 255, 0.10);
+            --text: rgba(255, 255, 255, 0.92);
+            --muted: rgba(255, 255, 255, 0.65);
+            --green: #35ff7a;
+            --cyan: #4fdfff;
+            --purple: #b16cff;
+            --gold: #ffd36e;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            color: var(--text);
+            background: radial-gradient(1200px 700px at 10% 15%, rgba(79, 223, 255, 0.20), transparent 60%),
+                radial-gradient(900px 600px at 85% 25%, rgba(177, 108, 255, 0.22), transparent 60%),
+                radial-gradient(800px 500px at 50% 85%, rgba(53, 255, 122, 0.10), transparent 60%),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        /* subtle animated grid */
+        .grid {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.18;
+            mask-image: radial-gradient(450px 300px at 50% 20%, black 30%, transparent 70%);
+            animation: drift 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes drift {
+            to {
+                transform: translate3d(-30px, 20px, 0);
+            }
+        }
+
+        .wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 40px 16px 70px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            backdrop-filter: blur(10px);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 18px rgba(53, 255, 122, 0.7);
+            animation: pulse 1.2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.35);
+                opacity: 1;
+            }
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            padding: 10px 12px;
+            border-radius: 12px;
+            transition: transform .12s ease, background .12s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        button:active {
+            transform: translateY(0px) scale(0.98);
+        }
+
+        .panel {
+            border: 1px solid var(--border);
+            background: var(--panel);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(12px);
+        }
+
+        .panelHead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .windowDots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .wd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0.85;
+        }
+
+        .wd.r {
+            background: #ff5c5c;
+        }
+
+        .wd.y {
+            background: #ffd36e;
+        }
+
+        .wd.g {
+            background: #34f58a;
+        }
+
+        .title {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .terminal {
+            padding: 18px 16px 20px;
+            line-height: 1.55;
+            font-size: 14px;
+            min-height: 360px;
+            position: relative;
+        }
+
+        .line {
+            display: block;
+            white-space: pre-wrap;
+        }
+
+        .prompt {
+            color: var(--cyan);
+        }
+
+        .ok {
+            color: var(--green);
+        }
+
+        .warn {
+            color: var(--gold);
+        }
+
+        .accent {
+            color: var(--purple);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            background: rgba(255, 255, 255, 0.75);
+            margin-left: 4px;
+            animation: blink .9s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .hero {
+            margin-top: 18px;
+            padding: 16px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .cardRow {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        @media (max-width: 760px) {
+            .cardRow {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .miniCard {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 12px;
+            overflow: hidden;
+        }
+
+        .miniCard h4 {
+            margin: 0 0 6px;
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .miniCard p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .bigText {
+            font-size: clamp(20px, 3.1vw, 34px);
+            font-weight: 800;
+            letter-spacing: -0.6px;
+            margin: 0;
+        }
+
+        .subText {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        canvas#confetti {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 20;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid"></div>
+    <canvas id="confetti"></canvas>
+
+    <div class="wrap">
+        <div class="top">
+            <div class="badge">
+                <span class="dot"></span>
+                <span id="badgeText">Booting birthday experience…</span>
+            </div>
+
+            <div class="actions">
+                <button id="btnReplay">Replay</button>
+                <button id="btnShare">Copy Share Text</button>
+                <button id="btnParty">Party Mode 🎉</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panelHead">
+                <div class="windowDots">
+                    <span class="wd r"></span><span class="wd y"></span><span class="wd g"></span>
+                </div>
+                <div class="title">david@smart: ~/birthday — interactive terminal</div>
+            </div>
+
+            <div class="terminal" id="terminal" aria-live="polite"></div>
+
+            <div class="hero">
+                <div>
+                    <p class="bigText">Happy Birthday, <span class="accent">David Smart</span> 🎂</p>
+                    <p class="subText">A dev’s birthday is a release: new version, more features, less bugs 😄</p>
+                </div>
+
+                <div class="cardRow">
+                    <div class="miniCard">
+                        <h4>David Smart</h4>
+                        <p>
+                            Frontend + Fullstack Engineer • UI/UX • Photographer.
+                            I build modern products end-to-end — from interface design to production-ready APIs.
+                        </p>
+                    </div>
+
+                    <div class="miniCard">
+                        <h4>Proof of Work</h4>
+                        <p>
+                            I’ve shipped real systems: dashboards, authentication, admin workflows, and responsive UIs —
+                            not just tutorials. I build what people can actually use.
+                        </p>
+                    </div>
+
+                    <div class="miniCard">
+                        <h4>Birthday Wish 🎁</h4>
+                        <p>
+                            If this impressed you, celebrate with me:
+                            <b>send a gift</b>, <b>refer a client</b>, or <b>offer a gig</b>.
+                            Let’s build something big together 🚀
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ====== Terminal Typing Engine ======
+        const terminal = document.getElementById("terminal");
+        const badgeText = document.getElementById("badgeText");
+        const btnReplay = document.getElementById("btnReplay");
+        const btnShare = document.getElementById("btnShare");
+        const btnParty = document.getElementById("btnParty");
+
+        const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+        function makeLine(html) {
+            const el = document.createElement("span");
+            el.className = "line";
+            el.innerHTML = html;
+            terminal.appendChild(el);
+            terminal.scrollTop = terminal.scrollHeight;
+            return el;
+        }
+
+        async function typeText(el, text, speed = 18) {
+            el.innerHTML = "";
+            const cursor = document.createElement("span");
+            cursor.className = "cursor";
+            cursor.textContent = " ";
+            el.appendChild(cursor);
+
+            for (let i = 0; i < text.length; i++) {
+                cursor.insertAdjacentText("beforebegin", text[i]);
+                await sleep(speed);
+            }
+            cursor.remove();
+        }
+
+        function clearTerminal() {
+            terminal.innerHTML = "";
+        }
+
+        const scriptLines = [
+            { kind: "cmd", text: "$ whoami" },
+            { kind: "out", text: "David Smart (David Semilore Bamidele)— Frontend/Fullstack Engineer • UI/UX • Photographer" },
+
+            { kind: "cmd", text: "$ date" },
+            { kind: "out", text: new Date().toString() },
+
+            { kind: "cmd", text: "$ echo \"Deploying birthday build…\"" },
+            { kind: "out", text: "Deploying David Smart birthday build…" },
+
+            { kind: "cmd", text: "$ npm run life:upgrade" },
+            { kind: "out", text: "✔ installing discipline@latest" },
+            { kind: "out", text: "✔ installing focus@stable" },
+            { kind: "out", text: "✔ installing confidence@major" },
+            { kind: "out", text: "⚠ removing self-doubt@deprecated" },
+
+            { kind: "cmd", text: "$ git status" },
+            { kind: "out", text: "On branch main" },
+            { kind: "out", text: "Your future is ahead (clean working tree)" },
+
+            { kind: "cmd", text: "$ node -e \"console.log('HAPPY BIRTHDAY, DAVID 🎉')\"" },
+            { kind: "out", text: "HAPPY BIRTHDAY, DAVID 🎉" },
+
+            { kind: "cmd", text: "$ ./run --goal \"become undeniable\"" },
+            { kind: "out", text: "✅ shipping projects" },
+            { kind: "out", text: "✅ building in public" },
+            { kind: "out", text: "✅ mentoring and learning daily" },
+            { kind: "out", text: "✅ becoming the standard" },
+
+            { kind: "final", text: "🎂 Today’s build passed all checks. New version: David.Smart++" },
+        ];
+
+        function format(kind, text) {
+            if (kind === "cmd") return `<span class="prompt">${escapeHtml(text)}</span>`;
+            if (kind === "final") return `<span class="accent">${escapeHtml(text)}</span>`;
+            if (text.startsWith("✔")) return `<span class="ok">${escapeHtml(text)}</span>`;
+            if (text.startsWith("✅")) return `<span class="ok">${escapeHtml(text)}</span>`;
+            if (text.startsWith("⚠")) return `<span class="warn">${escapeHtml(text)}</span>`;
+            return escapeHtml(text);
+        }
+
+        function escapeHtml(str) {
+            return str
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll("\"", "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        let running = false;
+
+        async function runTerminal() {
+            if (running) return;
+            running = true;
+            badgeText.textContent = "Running David's birthday script…";
+            clearTerminal();
+
+            // little intro
+            const intro = makeLine("");
+            await typeText(intro, "Initializing…", 22);
+            await sleep(250);
+
+            for (const item of scriptLines) {
+                const line = makeLine("");
+                await typeText(line, item.text, item.kind === "cmd" ? 14 : 9);
+                // then colorize after typing (cleaner effect)
+                line.innerHTML = format(item.kind, item.text);
+                await sleep(item.kind === "cmd" ? 200 : 160);
+            }
+
+            badgeText.textContent = "Complete. Tap Party Mode 🎉";
+            running = false;
+        }
+
+        // ====== Confetti (Canvas) ======
+        const canvas = document.getElementById("confetti");
+        const ctx = canvas.getContext("2d");
+
+        function resize() {
+            const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+            canvas.width = Math.floor(window.innerWidth * dpr);
+            canvas.height = Math.floor(window.innerHeight * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        const confettiPieces = [];
+        const confettiColors = ["#35ff7a", "#4fdfff", "#b16cff", "#ffd36e", "#ff6bd6", "#ffffff"];
+
+        function spawnConfetti(count = 180) {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            for (let i = 0; i < count; i++) {
+                confettiPieces.push({
+                    x: Math.random() * w,
+                    y: -20 - Math.random() * h * 0.3,
+                    r: 4 + Math.random() * 6,
+                    vx: -1.5 + Math.random() * 3,
+                    vy: 2 + Math.random() * 6,
+                    rot: Math.random() * Math.PI,
+                    vr: -0.2 + Math.random() * 0.4,
+                    color: confettiColors[(Math.random() * confettiColors.length) | 0],
+                    life: 180 + (Math.random() * 120) | 0
+                });
+            }
+        }
+
+        function tickConfetti() {
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+            for (let i = confettiPieces.length - 1; i >= 0; i--) {
+                const p = confettiPieces[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.rot += p.vr;
+                p.vy += 0.03; // gravity
+                p.life--;
+
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rot);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.max(0, Math.min(1, p.life / 120));
+                ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+                ctx.restore();
+
+                if (p.y > window.innerHeight + 40 || p.life <= 0) confettiPieces.splice(i, 1);
+            }
+
+            requestAnimationFrame(tickConfetti);
+        }
+        tickConfetti();
+
+        function partyMode() {
+            spawnConfetti(220);
+            badgeText.textContent = "Party Mode: ON 🎉";
+        }
+
+        // ====== Share UX ======
+        const shareText = `I coded this for my birthday 🎉
+A mini terminal + confetti + cinematic typing effect.
+Happy Birthday to me — David Smart ( David Semilore Bamidele )🚀✨`;
+
+        async function copyText(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                badgeText.textContent = "Copied! Paste Anywhere ✅";
+            } catch {
+                // fallback
+                const ta = document.createElement("textarea");
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand("copy");
+                ta.remove();
+                badgeText.textContent = "Copied (fallback). Paste anywhere ✅";
+            }
+        }
+
+        btnReplay.addEventListener("click", runTerminal);
+        btnParty.addEventListener("click", partyMode);
+        btnShare.addEventListener("click", () => copyText(shareText));
+
+        // Auto-run on load
+        runTerminal();
+    </script>
+</body>
+
+</html>
